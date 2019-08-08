@@ -1,9 +1,9 @@
 'use strict';
 
-/*
 //console.log('>> Ready :)');
+
 //URl de la api externa con la que queremos conectar//
-const urlApi = '';
+const urlApi = 'http://api.tvmaze.com/search/shows?q=';
 
 //función para conectar con la api externa y solicitar los datos //
 function getLoquesea() {
@@ -16,10 +16,8 @@ function getLoquesea() {
 
 getLoquesea();
 
-function showUrl(data) {
-    if (data.succes) {
-        
-    }
+/*function showUrl(data) {
+  if (data.succes) {
+  }
 }
 */
-
