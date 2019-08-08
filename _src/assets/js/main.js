@@ -15,18 +15,13 @@ function getUrlTv() {
   fetch(`http://api.tvmaze.com/search/shows?q=${inputSearch}`)
     .then(response => response.json())
     .then(data => {
-      if (data.length > 0) {
-        data = formatData(data);
-        saveDataInShows(data);
-        paintShows();
-        listenShows();
-        setShowsIntoLocalStorage();
-      } else {
-        resultShows.innerHTML = 'No se encontraron resultados';
-      }
-    })
-    // eslint-disable-next-line no-console
-    .catch(error => console.log(error));
+      console.log(data);
+      data = formatData(data);
+      saveDataInShows(data);
+      paintShows();
+      listenShows();
+      setShowsIntoLocalStorage();
+    });
 }
 
 // FORMATEAMOS //
@@ -54,7 +49,7 @@ function saveDataInShows(data) {
 function paintShows() {
   resultShows.innerHTML = '';
   for (let showIndex = 0; showIndex < shows.length; showIndex++) {
-    resultShows += `<li class="show_item ${getFavClassName(
+    resultShows.innerHTML += `<li class="show_item ${getFavClassName(
       showIndex
     )} ${getFilterClassName(showIndex)} js-shows" data-index="${showIndex}">`;
     resultShows.innerHTML += `<p class="shows_name">${
