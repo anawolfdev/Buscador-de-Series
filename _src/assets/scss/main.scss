@@ -39,7 +39,8 @@
   background-color: rgb(230, 128, 213);
   color: rgb(246, 213, 231);
   margin: 3px 0;
-  display: flex;
+  display: inline-block;
+  width: 100%;
   padding: 0;
 }
 
@@ -54,4 +55,12 @@
 
 .fav_list {
   margin-top: 20px;
+  display: inline-block;
+  width: 300px;
+}
+
+.show_info {
+  h3 {
+    text-align: center;
+  }
 }

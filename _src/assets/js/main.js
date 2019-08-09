@@ -6,7 +6,7 @@ const buttonSearch = document.querySelector('.js-search_btn');
 const resultSlctr = document.querySelector('.result_shows');
 const favShows = document.querySelector('.shows_fav');
 
-const favShowsArray = [];
+let favShowsArray = [];
 let showInfo = [];
 
 function renderShowInfo(data) {
@@ -43,8 +43,17 @@ function addFavourites(ev) {
   localStorage.setItem('favouritesShows', JSON.stringify(favShowsArray));
 }
 
+function getFromLocalStorage() {
+  const localStorageFavourites = localStorage.getItem('favouritesShows');
+  if (localStorageFavourites !== null) {
+    favShowsArray = JSON.parse(localStorageFavourites);
+    renderFavourites();
+  }
+}
+
 function renderFavourites() {
   let showItem;
+  favShows.innerHTML = '';
   for (
     let favouriteIndex = 0;
     favouriteIndex < favShowsArray.length;
@@ -69,7 +78,7 @@ function renderFavourites() {
   }
 }
 
-// función para conectar con la api externa y solicitar los datos //
+// Fetch(API) //
 function getUrlTv(showName) {
   fetch(`http://api.tvmaze.com/search/shows?q=${showName}`)
     .then(response => response.json())
@@ -82,3 +91,5 @@ buttonSearch.addEventListener('click', function(evt) {
   let showName = inputSearch.value;
   getUrlTv(showName);
 });
+
+getFromLocalStorage();
