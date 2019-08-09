@@ -82,6 +82,3 @@ buttonSearch.addEventListener('click', function(evt) {
   let showName = inputSearch.value;
   getUrlTv(showName);
 });
-
-// Issue 4
-// Paso 4: guardarlos en LocalStorage
