@@ -16,16 +16,18 @@
 
     <header class="header">
       <h1 class="header_title">Buscador de series</h1>
-      <label for="input_tv"></label>
-      <input type="text" class="js-input" id="input_tv" />
-      <button type="submit" class="js-search_btn">Search</button>
+      <div class="search_container">
+        <input type="text" class="js-input" id="input_show" />
+        <button type="submit" class="js-search_btn">Search</button>
+      </div>
     </header>
 
     <main class="main">
-      <div class="shows_fav"></div>
-      <ul class="result_shows"></ul>
+      <div class="shows_container">
+        <div class="shows_fav"></div>
+        <ul class="result_shows"></ul>
+      </div>
     </main>
-
   </div>
 
   <script src="assets/js/main.js"></script>
