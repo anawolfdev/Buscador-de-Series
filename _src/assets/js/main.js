@@ -6,12 +6,13 @@ const buttonSearch = document.querySelector('.js-search_btn');
 const resultSlctr = document.querySelector('.result_shows');
 const favShows = document.querySelector('.shows_fav');
 
+let removeFavBtn = [];
 let favShowsArray = [];
 let showInfo = [];
 
 function renderShowInfo(data) {
   showInfo = data;
-
+  resultSlctr.innerHTML = ''; // se modifica el contenido html de la clase .result_shows(resultSlctr) para que antes de pintar los datos me lo pinte en blanco //
   let showItem;
 
   for (let showIndex = 0; showIndex < showInfo.length; showIndex++) {
@@ -64,7 +65,7 @@ function renderFavourites() {
         favShowsArray[favouriteIndex].show.name
       } class="show_image" avatar"><h3>${
         favShowsArray[favouriteIndex].show.name
-      }</h3></li>`;
+      } </h3><button class="remove_fav" data-btnindex="${favouriteIndex}">x</button></li>`;
     } else {
       showItem = `<li class="show_info" data-liindex="${favouriteIndex}"><img src=${
         favShowsArray[favouriteIndex].show.image.medium
@@ -72,9 +73,13 @@ function renderFavourites() {
         favShowsArray[favouriteIndex].show.name
       } class="show_image" avatar"><h3>${
         favShowsArray[favouriteIndex].show.name
-      }</h3></li>`;
+      } </h3><button class="remove_fav" data-btnindex="${favouriteIndex}">x</button></li>`;
     }
     favShows.innerHTML += showItem;
+  }
+  removeFavBtn = document.querySelectorAll('.remove_fav');
+  for (let btn of removeFavBtn) {
+    btn.addEventListener('click', removeFav);
   }
 }
 
@@ -83,7 +88,27 @@ function getUrlTv(showName) {
   fetch(`http://api.tvmaze.com/search/shows?q=${showName}`)
     .then(response => response.json())
     .then(data => renderShowInfo(data))
+    // eslint-disable-next-line no-console
     .catch(error => console.log(error));
+}
+
+// función para limpiar el input
+const clearInput = () => (inputSearch.value = '');
+
+//función para busque con la tecla enter
+const enterKey = evt => {
+  if (evt.key === 'Enter') {
+    let showName = inputSearch.value;
+    getUrlTv(showName);
+  }
+};
+
+// Función para eliminar favoritos
+function removeFav(evt) {
+  let clickRemove = parseInt(evt.currentTarget.dataset.btnindex);
+  favShowsArray.splice(clickRemove, 1);
+  renderFavourites();
+  localStorage.setItem('favouritesShows', JSON.stringify(favShowsArray));
 }
 
 // Events Listeners //
@@ -91,5 +116,7 @@ buttonSearch.addEventListener('click', function(evt) {
   let showName = inputSearch.value;
   getUrlTv(showName);
 });
+inputSearch.addEventListener('click', clearInput);
+inputSearch.addEventListener('keyup', enterKey);
 
 getFromLocalStorage();
