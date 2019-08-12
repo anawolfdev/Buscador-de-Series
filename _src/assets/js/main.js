@@ -12,7 +12,8 @@ let showInfo = [];
 
 function renderShowInfo(data) {
   showInfo = data;
-  resultSlctr.innerHTML = ''; // se modifica el contenido html de la clase .result_shows(resultSlctr) para que antes de pintar los datos me lo pinte en blanco //
+  // Add resultSlctr = ''
+  resultSlctr.innerHTML = '';
   let showItem;
 
   for (let showIndex = 0; showIndex < showInfo.length; showIndex++) {
@@ -73,7 +74,7 @@ function renderFavourites() {
         favShowsArray[favouriteIndex].show.name
       } class="show_image" avatar"><h3>${
         favShowsArray[favouriteIndex].show.name
-      } </h3><button class="remove_fav" data-btnindex="${favouriteIndex}">x</button></li>`;
+      } </h3><button class="remove_fav" data-btnindex="${favouriteIndex}">x</button><button class="fav_names>show names</button></li>`;
     }
     favShows.innerHTML += showItem;
   }
@@ -92,10 +93,10 @@ function getUrlTv(showName) {
     .catch(error => console.log(error));
 }
 
-// función para limpiar el input
+// Improvment: Clear Input
 const clearInput = () => (inputSearch.value = '');
 
-//función para busque con la tecla enter
+// Improvment: Search show with Enter Key in the input
 const enterKey = evt => {
   if (evt.key === 'Enter') {
     let showName = inputSearch.value;
@@ -103,7 +104,7 @@ const enterKey = evt => {
   }
 };
 
-// Función para eliminar favoritos
+// Improvment[Bonus]: Remove Fav from the list and from the Local Storage
 function removeFav(evt) {
   let clickRemove = parseInt(evt.currentTarget.dataset.btnindex);
   favShowsArray.splice(clickRemove, 1);
@@ -112,6 +113,7 @@ function removeFav(evt) {
 }
 
 // Events Listeners //
+// eslint-disable-next-line no-unused-vars
 buttonSearch.addEventListener('click', function(evt) {
   let showName = inputSearch.value;
   getUrlTv(showName);
