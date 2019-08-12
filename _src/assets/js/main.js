@@ -93,10 +93,10 @@ function getUrlTv(showName) {
     .catch(error => console.log(error));
 }
 
-// Improvment: Clear Input
+// Improvement: Clear Input
 const clearInput = () => (inputSearch.value = '');
 
-// Improvment: Search show with Enter Key in the input
+// Improvement: Search show with Enter Key in the input
 const enterKey = evt => {
   if (evt.key === 'Enter') {
     let showName = inputSearch.value;
@@ -104,7 +104,7 @@ const enterKey = evt => {
   }
 };
 
-// Improvment[Bonus]: Remove Fav from the list and from the Local Storage
+// Improvement[Bonus]: Remove Fav from the list and from the Local Storage
 function removeFav(evt) {
   let clickRemove = parseInt(evt.currentTarget.dataset.btnindex);
   favShowsArray.splice(clickRemove, 1);
