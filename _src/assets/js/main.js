@@ -65,10 +65,12 @@ function getUrlTv(showName) {
   fetch(`http://api.tvmaze.com/search/shows?q=${showName}`)
     .then(response => response.json())
     .then(data => renderShowInfo(data))
+    // eslint-disable-next-line no-console
     .catch(error => console.log(error));
 }
 
 // Events Listeners //
+// eslint-disable-next-line no-unused-vars
 buttonSearch.addEventListener('click', function(evt) {
   let showName = inputSearch.value;
   getUrlTv(showName);
