@@ -15,29 +15,10 @@ function renderShowInfo(data) {
   let showItem;
 
   for (let showIndex = 0; showIndex < showInfo.length; showIndex++) {
-    /* bucle para sacar un listado de los días de la semana en los que se representa el show. Pintar después del </h3> un <ul>[dayItem]
-    let dayItem = '';
-    for (
-      let daysIndex = 0;
-      daysIndex < showInfo[showIndex].show.schedule.days.length;
-      daysIndex++
-    ) {
-      dayItem += `<li>${
-        showInfo[showIndex].show.schedule.days[daysIndex]
-      }</li>`;
-    }*/
     if (showInfo[showIndex].show.image === null) {
-      showItem = `<li class="show_info" data-liindex="${showIndex}"><img src='https://via.placeholder.com/210x295/ffffff/666666/?text=TV' alt="${
-        showInfo[showIndex].show.name
-      } class="show_image" avatar"><h3>${
-        showInfo[showIndex].show.name
-      }</h3></li>`;
+      showItem = `<li class="show_info" data-liindex="${showIndex}"><img src='https://via.placeholder.com/210x295/ffffff/666666/?text=TV' alt="${showInfo[showIndex].show.name} class="show_image" avatar"><h3>${showInfo[showIndex].show.name}</h3></li>`;
     } else {
-      showItem = `<li class="show_info" data-liindex="${showIndex}"><img src=${
-        showInfo[showIndex].show.image.medium
-      } alt="${showInfo[showIndex].show.name} class="show_image" avatar"><h3>${
-        showInfo[showIndex].show.name
-      }</h3></li>`;
+      showItem = `<li class="show_info" data-liindex="${showIndex}"><img src=${showInfo[showIndex].show.image.medium} alt="${showInfo[showIndex].show.name} class="show_image" avatar"><h3>${showInfo[showIndex].show.name}</h3></li>`;
     }
     resultSlctr.innerHTML += showItem;
   }
@@ -71,19 +52,9 @@ function renderFavourites() {
     favouriteIndex++
   ) {
     if (favShowsArray[favouriteIndex].show.image === null) {
-      showItem = `<li class="show_info" data-liindex="${favouriteIndex}"><img src='https://via.placeholder.com/210x295/ffffff/666666/?text=TV' alt="${
-        favShowsArray[favouriteIndex].show.name
-      } class="show_image" avatar"><h3>${
-        favShowsArray[favouriteIndex].show.name
-      }</h3></li>`;
+      showItem = `<li class="show_info" data-liindex="${favouriteIndex}"><img src='https://via.placeholder.com/210x295/ffffff/666666/?text=TV' alt="${favShowsArray[favouriteIndex].show.name} class="show_image" avatar"><h3>${favShowsArray[favouriteIndex].show.name}</h3></li>`;
     } else {
-      showItem = `<li class="show_info" data-liindex="${favouriteIndex}"><img src=${
-        favShowsArray[favouriteIndex].show.image.medium
-      } alt="${
-        favShowsArray[favouriteIndex].show.name
-      } class="show_image" avatar"><h3>${
-        favShowsArray[favouriteIndex].show.name
-      }</h3></li>`;
+      showItem = `<li class="show_info" data-liindex="${favouriteIndex}"><img src=${favShowsArray[favouriteIndex].show.image.medium} alt="${favShowsArray[favouriteIndex].show.name} class="show_image" avatar"><h3>${favShowsArray[favouriteIndex].show.name}</h3></li>`;
     }
     favShows.innerHTML += showItem;
   }
