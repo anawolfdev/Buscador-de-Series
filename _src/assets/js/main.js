@@ -9,26 +9,25 @@ const favShows = document.querySelector('.shows_fav');
 let removeFavBtn = [];
 let favShowsArray = [];
 let showInfo = [];
+let favId = [];
 
 function renderShowInfo(data) {
   showInfo = data;
-  // Add resultSlctr = ''
   resultSlctr.innerHTML = '';
   let showItem;
 
   for (let showIndex = 0; showIndex < showInfo.length; showIndex++) {
     if (showInfo[showIndex].show.image === null) {
-      showItem = `<li class="show_info" data-liindex="${showIndex}"><img src='https://via.placeholder.com/210x295/ffffff/666666/?text=TV' alt="${
+      // eslint-disable-next-line no-use-before-define
+      showItem = `<li class="show_info ${addFavouriteClass(
+        showIndex
+      )}" data-liindex="${showIndex}"><img src='https://via.placeholder.com/210x295/ffffff/666666/?text=TV' alt="${
         showInfo[showIndex].show.name
       } class="show_image" avatar"><h3>${
         showInfo[showIndex].show.name
       }</h3></li>`;
     } else {
-      showItem = `<li class="show_info" data-liindex="${showIndex}"><img src=${
-        showInfo[showIndex].show.image.medium
-      } alt="${showInfo[showIndex].show.name} class="show_image" avatar"><h3>${
-        showInfo[showIndex].show.name
-      }</h3></li>`;
+      showItem = `<li class="show_info" data-liindex="${showIndex}"><img src=${showInfo[showIndex].show.image.medium} alt="${showInfo[showIndex].show.name} class="show_image" avatar"><h3>${showInfo[showIndex].show.name}</h3></li>`;
     }
     resultSlctr.innerHTML += showItem;
   }
@@ -40,8 +39,25 @@ function renderShowInfo(data) {
 
 function addFavourites(ev) {
   let clickShow = ev.currentTarget;
-  favShowsArray.push(showInfo[clickShow.dataset.liindex]);
+  if (favId.includes(showInfo[clickShow.dataset.liindex].show.id) === false) {
+    favShowsArray.push(showInfo[clickShow.dataset.liindex]);
+    favId.push(showInfo[clickShow.dataset.liindex].show.id);
+  }
   renderFavourites();
+  setLocalStorage(favShowsArray);
+}
+
+// Improvement[Bonus]: Remove Fav from the list and from the Local Storage
+function removeFav(evt) {
+  let clickRemove = parseInt(evt.currentTarget.dataset.btnindex);
+  favShowsArray.splice(clickRemove, 1);
+  favId.splice(clickRemove, 1);
+  renderFavourites();
+  setLocalStorage(favShowsArray);
+}
+
+// Issue 1: Function setLocalStorage //
+function setLocalStorage(favShowsArray) {
   localStorage.setItem('favouritesShows', JSON.stringify(favShowsArray));
 }
 
@@ -62,19 +78,9 @@ function renderFavourites() {
     favouriteIndex++
   ) {
     if (favShowsArray[favouriteIndex].show.image === null) {
-      showItem = `<li class="show_info" data-liindex="${favouriteIndex}"><img src='https://via.placeholder.com/210x295/ffffff/666666/?text=TV' alt="${
-        favShowsArray[favouriteIndex].show.name
-      } class="show_image" avatar"><h3>${
-        favShowsArray[favouriteIndex].show.name
-      } </h3><button class="remove_fav" data-btnindex="${favouriteIndex}">x</button></li>`;
+      showItem = `<li class="show_info" data-liindex="${favouriteIndex}"><img src='https://via.placeholder.com/210x295/ffffff/666666/?text=TV' alt="${favShowsArray[favouriteIndex].show.name} class="show_image" avatar"><h3>${favShowsArray[favouriteIndex].show.name} </h3><button class="remove_fav" data-btnindex="${favouriteIndex}">x</button></li>`;
     } else {
-      showItem = `<li class="show_info" data-liindex="${favouriteIndex}"><img src=${
-        favShowsArray[favouriteIndex].show.image.medium
-      } alt="${
-        favShowsArray[favouriteIndex].show.name
-      } class="show_image" avatar"><h3>${
-        favShowsArray[favouriteIndex].show.name
-      } </h3><button class="remove_fav" data-btnindex="${favouriteIndex}">x</button><button class="fav_names>show names</button></li>`;
+      showItem = `<li class="show_info" data-liindex="${favouriteIndex}"><img src=${favShowsArray[favouriteIndex].show.image.medium} alt="${favShowsArray[favouriteIndex].show.name} class="show_image" avatar"><h3>${favShowsArray[favouriteIndex].show.name} </h3><button class="remove_fav" data-btnindex="${favouriteIndex}">x</button><button class="fav_names>show names</button></li>`;
     }
     favShows.innerHTML += showItem;
   }
@@ -83,6 +89,15 @@ function renderFavourites() {
     btn.addEventListener('click', removeFav);
   }
 }
+
+// Issue 2: Function for favId for checking shows in the fav list
+const addFavouriteClass = showIndex => {
+  if (favId.includes(showInfo[showIndex].show.id)) {
+    return 'favourite';
+  } else {
+    return '';
+  }
+};
 
 // Fetch(API) //
 function getUrlTv(showName) {
@@ -103,14 +118,6 @@ const enterKey = evt => {
     getUrlTv(showName);
   }
 };
-
-// Improvement[Bonus]: Remove Fav from the list and from the Local Storage
-function removeFav(evt) {
-  let clickRemove = parseInt(evt.currentTarget.dataset.btnindex);
-  favShowsArray.splice(clickRemove, 1);
-  renderFavourites();
-  localStorage.setItem('favouritesShows', JSON.stringify(favShowsArray));
-}
 
 // Events Listeners //
 // eslint-disable-next-line no-unused-vars
