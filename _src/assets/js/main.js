@@ -17,6 +17,17 @@ function renderShowInfo(data) {
   let showItem;
 
   for (let showIndex = 0; showIndex < showInfo.length; showIndex++) {
+    /* weekend days list of the show. Paint then at </h3> and <ul> [dayItem]
+    let dayItem = '';
+    for (
+      let daysIndex = 0;
+      daysIndex < showInfo[showIndex].show.schedule.days.length;
+      daysIndex++
+    ) {
+      dayItem += `<li>${
+        showInfo[showIndex].show.schedule.days[daysIndex]
+      }</li>`;
+    }*/
     if (showInfo[showIndex].show.image === null) {
       // eslint-disable-next-line no-use-before-define
       showItem = `<li class="show_info ${addFavouriteClass(
